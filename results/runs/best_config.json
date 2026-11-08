@@ -1,0 +1,12 @@
+{
+  "best_hp": {
+    "lora_r": 16,
+    "alpha_mult": 1,
+    "lr": 0.0002,
+    "epochs": 3,
+    "targets": "all"
+  },
+  "how": "combined per-factor choices",
+  "combined_tune_EX": 87.45762711864407,
+  "baseline_tune_EX": 85.08474576271186
+}

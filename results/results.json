@@ -1,0 +1,299 @@
+{
+  "config": {
+    "QUICK_RUN": false,
+    "RUN_TUNING": true,
+    "RUN_FEWSHOT": true,
+    "RUN_DEFAULT_TEST": true,
+    "RUN_DATASETS": true,
+    "RUN_SCALING": true,
+    "RUN_SIZE_ABLATION": true,
+    "MODEL_NAME": "unsloth/Qwen3.5-0.8B",
+    "SCALING_MODELS": {
+      "2B": "unsloth/Qwen3.5-2B"
+    },
+    "RUN_4B_4BIT": false,
+    "MODEL_4B": "unsloth/Qwen3.5-4B",
+    "DS_A": "b-mc2/sql-create-context",
+    "DS_B": "gretelai/synthetic_text_to_sql",
+    "N_TRAIN": 2000,
+    "N_VAL": 100,
+    "N_TUNE": 300,
+    "N_TEST": 200,
+    "N_SHOTS": 3,
+    "B_POOL": 2500,
+    "MAX_PROMPT_CHARS": 2600,
+    "ABLATION_SIZES": [
+      250,
+      500,
+      1000
+    ],
+    "SEEDS": [
+      3407,
+      42,
+      1234
+    ],
+    "BASE_HP": {
+      "lora_r": 16,
+      "alpha_mult": 1,
+      "lr": 0.0002,
+      "epochs": 1,
+      "targets": "all"
+    },
+    "TUNE_GRID": {
+      "lora_r": [
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "lr": [
+        5e-05,
+        0.0001,
+        0.0002,
+        0.0005
+      ],
+      "epochs": [
+        1,
+        2,
+        3
+      ],
+      "targets": [
+        "attn",
+        "all"
+      ],
+      "alpha_mult": [
+        1,
+        2
+      ]
+    },
+    "TUNE_TOL": 1.0,
+    "PREFER": {
+      "lora_r": "low",
+      "epochs": "low",
+      "lr": "base",
+      "targets": "base",
+      "alpha_mult": "base"
+    },
+    "HP_LABELS": {
+      "lora_r": "LoRA rank r",
+      "lr": "learning rate",
+      "epochs": "epochs",
+      "targets": "target modules",
+      "alpha_mult": "alpha / r"
+    },
+    "MAX_SEQ_LEN": 1024,
+    "BATCH_BY_SIZE": {
+      "0.8B": [
+        4,
+        4
+      ],
+      "2B": [
+        4,
+        4
+      ],
+      "4B-4bit": [
+        2,
+        8
+      ]
+    },
+    "GEN_BATCH_SIZE": 16,
+    "MAX_NEW_TOKENS": 192,
+    "N_EXEC_DBS": 3,
+    "ROWS_PER_TABLE": 20,
+    "N_BOOT": 2000,
+    "SEED": 3407,
+    "OUT_DIR": "/kaggle/working",
+    "FIG_DIR": "/kaggle/working/figures",
+    "RUN_DIR": "/kaggle/working/runs",
+    "ADAPTER_DIR": "/kaggle/working/adapters",
+    "SAVE_ALL_ADAPTERS": false,
+    "PFX": ""
+  },
+  "selected_hp": {
+    "lora_r": 16,
+    "alpha_mult": 1,
+    "lr": 0.0002,
+    "epochs": 3,
+    "targets": "all"
+  },
+  "selection": "combined per-factor choices",
+  "main_A_test": {
+    "ex": [
+      80.9278350515464,
+      75.25773195876289,
+      86.08247422680412
+    ],
+    "em": [
+      74.5,
+      68.5,
+      80.5
+    ],
+    "valid": [
+      95.0,
+      92.0,
+      98.0
+    ],
+    "token_f1": [
+      97.0973894144092,
+      96.25603989775595,
+      97.8761405605828
+    ],
+    "format_ok": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "zero_A_test": {
+    "ex": [
+      34.02061855670103,
+      27.31958762886598,
+      40.72164948453608
+    ],
+    "em": [
+      33.0,
+      27.0,
+      39.5
+    ],
+    "valid": [
+      90.5,
+      86.5,
+      94.5
+    ],
+    "token_f1": [
+      85.82900852220864,
+      83.65690664758861,
+      87.99167403447771
+    ],
+    "format_ok": [
+      100.0,
+      100.0,
+      100.0
+    ]
+  },
+  "seeds_A_test_EX": [
+    80.9278350515464,
+    80.9278350515464,
+    82.9896907216495
+  ],
+  "mcnemar": [
+    {
+      "comparison": "tuned (seed 3407) vs zero-shot",
+      "fixed": 94,
+      "broken": 3,
+      "p-value": 1.9209583457473067e-24,
+      "significant (alpha=0.05)": true
+    },
+    {
+      "comparison": "tuned (seed 42) vs zero-shot",
+      "fixed": 95,
+      "broken": 2,
+      "p-value": 6.000391589473104e-26,
+      "significant (alpha=0.05)": true
+    },
+    {
+      "comparison": "tuned (seed 1234) vs zero-shot",
+      "fixed": 97,
+      "broken": 1,
+      "p-value": 6.2477783693504135e-28,
+      "significant (alpha=0.05)": true
+    },
+    {
+      "comparison": "tuned vs 3-shot",
+      "fixed": 109,
+      "broken": 3,
+      "p-value": 9.022943270855311e-29,
+      "significant (alpha=0.05)": true
+    },
+    {
+      "comparison": "tuned vs default LoRA config",
+      "fixed": 8,
+      "broken": 5,
+      "p-value": 0.5810546875,
+      "significant (alpha=0.05)": false
+    }
+  ],
+  "cross_dataset": {
+    "A-test": {
+      "Zero-shot": 34.02061855670103,
+      "Train A (2000)": 80.9278350515464,
+      "Train B (2000)": 38.659793814432994,
+      "Train A+B (1000+1000)": 79.38144329896907
+    },
+    "B-test": {
+      "Zero-shot": 41.0,
+      "Train A (2000)": 23.0,
+      "Train B (2000)": 54.50000000000001,
+      "Train A+B (1000+1000)": 56.99999999999999
+    }
+  },
+  "scaling": [
+    {
+      "model": "Qwen3.5-0.8B",
+      "params (M)": 859.37568,
+      "trainable (M)": 6.38976,
+      "zero-shot EX A": 34.02061855670103,
+      "fine-tuned EX A": 80.9278350515464,
+      "zero-shot EX B": 41.0,
+      "fine-tuned EX B": 23.0,
+      "train min": 15.205395829677581,
+      "peak VRAM (GB)": 2.45283584,
+      "s / example (ft)": 0.35748770236968996
+    },
+    {
+      "model": "Qwen3.5-2B",
+      "params (M)": 2224.153408,
+      "trainable (M)": 10.911744,
+      "zero-shot EX A": 37.11340206185567,
+      "fine-tuned EX A": 82.9896907216495,
+      "zero-shot EX B": 50.5,
+      "fine-tuned EX B": 32.5,
+      "train min": 15.614796725908915,
+      "peak VRAM (GB)": 6.738542592,
+      "s / example (ft)": 0.298197740316391
+    }
+  ],
+  "size_ablation": [
+    {
+      "train_examples": 0,
+      "ex": 34.02061855670103,
+      "em": 33.0,
+      "valid": 90.5,
+      "token_f1": 85.82900852220864,
+      "format_ok": 100.0
+    },
+    {
+      "train_examples": 250,
+      "ex": 60.824742268041234,
+      "em": 61.0,
+      "valid": 92.5,
+      "token_f1": 94.09147786542101,
+      "format_ok": 100.0
+    },
+    {
+      "train_examples": 500,
+      "ex": 76.80412371134021,
+      "em": 65.5,
+      "valid": 94.0,
+      "token_f1": 95.4507330906483,
+      "format_ok": 100.0
+    },
+    {
+      "train_examples": 1000,
+      "ex": 80.9278350515464,
+      "em": 70.5,
+      "valid": 96.0,
+      "token_f1": 96.57565378422771,
+      "format_ok": 100.0
+    },
+    {
+      "train_examples": 2000,
+      "ex": 80.9278350515464,
+      "em": 74.5,
+      "valid": 95.0,
+      "token_f1": 97.0973894144092,
+      "format_ok": 100.0
+    }
+  ]
+}

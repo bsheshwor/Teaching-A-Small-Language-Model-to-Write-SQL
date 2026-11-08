@@ -1,0 +1,14 @@
+{
+  "base_model": "unsloth/Qwen3.5-0.8B",
+  "hp": {
+    "lora_r": 16,
+    "alpha_mult": 1,
+    "lr": 0.0002,
+    "epochs": 3,
+    "targets": "all"
+  },
+  "seed": 3407,
+  "four_bit": false,
+  "n_train": 2000,
+  "key": "ftA_r16_a1_lr0.0002_e3_all_s3407"
+}

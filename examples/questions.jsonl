@@ -1,0 +1,2 @@
+{"question": "How many students have a GPA above 3.5?", "context": "CREATE TABLE students (id INTEGER, name TEXT, gpa REAL, major TEXT);"}
+{"question": "What is the average GPA for each major?", "context": "CREATE TABLE students (id INTEGER, name TEXT, gpa REAL, major TEXT);"}

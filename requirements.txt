@@ -1,0 +1,14 @@
+unsloth
+unsloth_zoo
+torch
+transformers
+peft
+trl
+datasets
+accelerate
+bitsandbytes
+numpy
+pandas
+matplotlib
+scipy
+tqdm
